@@ -1,3 +1,3 @@
 # V Interactive Shell
 
-interactive shell witten in V.
+interactive shell written in V.
