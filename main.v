@@ -55,7 +55,6 @@ fn main() {
 			continue
 		}
 
-		println(line)
-		// exec(line)
+		exec(line)
 	}
 }
