@@ -5,9 +5,7 @@ import term
 import readline
 
 fn get_one_line(prompt string) ?string {
-	rline := readline.read_line(prompt) or {
-		return none
-	}
+	rline := readline.read_line(prompt) or { return none }
 	return rline
 }
 
@@ -46,7 +44,7 @@ fn main() {
 			break
 		}
 
-		if line == '\n' {
+		if line == '' {
 			continue
 		}
 
