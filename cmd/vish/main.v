@@ -3,6 +3,7 @@ module main
 import os
 import term
 import readline
+import vish_core.commands
 
 fn get_one_line(prompt string) ?string {
 	rline := readline.read_line(prompt) or { return none }
@@ -30,29 +31,38 @@ fn exec(path string) string {
 }
 
 fn main() {
-	mut wd := os.getwd()
-	mut prompt := wd + '> '
+	mut prompt := '> '
 
 	for {
-		wd = os.getwd()
-		prompt = wd + '> '
+		prompt = '> '
 
 		oline := get_one_line(prompt) or { break }
 		line := oline.trim_space()
-
-		if line == 'exit' {
-			break
+		args := line.split(' ')
+		match args[0] {
+			'' {
+				continue
+			}
+			'exit' {
+				break
+			}
+			'clear' {
+				term.erase_clear()
+				continue
+			}
+			'cd' {
+				if args.len == 1 {
+					commands.change_dir(os.home_dir())!
+				} else {
+					commands.change_dir(args[1]) or {
+						eprintln(err)
+						continue
+					}
+				}
+			}
+			else {
+				exec(line)
+			}
 		}
-
-		if line == '' {
-			continue
-		}
-
-		if line == 'clear' {
-			term.erase_clear()
-			continue
-		}
-
-		exec(line)
 	}
 }

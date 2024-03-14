@@ -1,15 +1,17 @@
+.PHONY: test format
+
 VC=v
 
 fmt:
-	find . -type f -name '*.v' | xargs -n1 $(VC) fmt -w
+	$(VC) fmt -w .
 
 test:
-	$(VC) test tests/hello_test.v
+	$(VC) test tests
 
 run:
-	$(VC) run .
+	$(VC) run cmd/vish
 
 windows_build:
 	$(VC) -os windows .
 
-.PHONY: test format
+
